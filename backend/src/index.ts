@@ -8,6 +8,7 @@ import { logger } from './utils/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { rateLimiter } from './middleware/rateLimiter.js';
+import gameRoutes from './routes/gameRoutes.js';
 
 // Load environment variables
 dotenv.config();
@@ -60,10 +61,7 @@ app.get('/health', (req, res) => {
 });
 
 // API routes
-app.use('/api/v1', (req, res, next) => {
-  // API routes will be added here
-  res.json({ message: 'API v1 - Coming Soon' });
-});
+app.use('/api/v1/game', gameRoutes);
 
 // Error handling middleware (must be last)
 app.use(notFoundHandler);
