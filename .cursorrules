@@ -191,6 +191,19 @@ src/
 - Document any deviations from the original plan
 - Commit phase transitions with clear messages
 
+### Phase Completion Workflow
+When a phase is complete, **ALWAYS** follow these steps in order:
+1. **Commit Changes**: Create comprehensive commit with phase summary
+2. **Push Branch**: Push the phase branch to remote repository
+3. **Create PR**: Use GitHub CLI to create detailed pull request with:
+   - Clear title indicating phase completion
+   - Comprehensive description of deliverables and achievements
+   - Testing results and technical metrics
+   - Files added/modified summary
+4. **Merge PR**: Merge the pull request into main branch
+5. **Update Main**: Switch to main and pull latest changes
+6. **Start Next Phase**: Create new branch for next phase with updated todos
+
 ### Code Review Checklist
 - [ ] Code follows established patterns
 - [ ] All tests pass
