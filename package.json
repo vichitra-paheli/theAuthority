@@ -8,9 +8,21 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev": "concurrently --kill-others-on-fail --prefix=\"[{name}]\" --names=\"frontend,backend\" \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && npm run dev",
+    "dev:bg": "pm2 start ecosystem.config.cjs",
+    "dev:pm2": "pm2 start ecosystem.config.cjs",
+    "stop": "pm2 stop ecosystem.config.cjs",
+    "restart": "pm2 restart ecosystem.config.cjs",
+    "delete": "pm2 delete ecosystem.config.cjs",
+    "status": "pm2 status",
+    "logs": "pm2 logs",
+    "logs:frontend": "pm2 logs theauthority-frontend",
+    "logs:backend": "pm2 logs theauthority-backend",
+    "monitor": "pm2 monit",
+    "setup": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "clean": "rm -rf node_modules frontend/node_modules backend/node_modules frontend/dist backend/dist logs/*",
     "build": "npm run build:frontend && npm run build:backend",
     "build:frontend": "cd frontend && npm run build",
     "build:backend": "cd backend && npm run build",
@@ -41,6 +53,7 @@
   },
   "homepage": "https://github.com/vichitra-paheli/theAuthority#readme",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "pm2": "^6.0.8"
   }
 }
