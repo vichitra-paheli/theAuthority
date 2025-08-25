@@ -37,7 +37,25 @@ This document outlines a focused vertical slice development approach for the pol
    - Policy decision panel with structured choices
    - Turn results display with demographic reactions
 
-6. **Minimal AI Integration**
+6. **Progress Dashboard System**
+   - Overall status tracking with trend indicators
+   - Budget health monitoring with visual progress bars
+   - Demographic harmony overview with mini-visualizations
+   - Achievement and milestone tracking
+
+7. **Basic Animation System**
+   - Loading states for policy processing
+   - Turn transition animations
+   - Smooth metric updates and progress bar animations
+   - Basic micro-interactions and hover effects
+
+8. **Causal Loop Visualization (Basic)**
+   - Simple diagram showing 3-4 key relationships
+   - Level 1 visibility: Basic policy → outcome connections
+   - Interactive nodes with hover information
+   - Foundation for progressive revelation system
+
+9. **Minimal AI Integration**
    - Local LLM setup with basic prompts
    - Two demographic agents evaluating both predefined and custom policies
    - Simple response parsing with fallback for predefined options
@@ -122,14 +140,27 @@ This document outlines a focused vertical slice development approach for the pol
 - [ ] Add issue categorization and context display
 - [ ] Implement demographic impact previews
 
-#### Day 18-19: Game Dashboard ✅ COMPLETED
+#### Day 18-19: Enhanced Dashboard & Progress Tracking ✅ COMPLETED (NEEDS UPDATE)
 - [x] Create approval rating display with color-coded indicators
 - [x] Build budget overview component with currency formatting
 - [x] Add demographic happiness indicators with progress bars
 - [x] Implement basic charts/graphs for demographic data
 - [x] Create comprehensive dashboard with all key metrics
+- [ ] Add progress overview dashboard with trend indicators
+- [ ] Implement budget health monitoring with visual progress bars
+- [ ] Create demographic harmony overview with mini-visualizations
+- [ ] Add basic achievement and milestone tracking system
 
-#### Day 20-21: Integration & Testing ✅ COMPLETED
+#### Day 20-21: Animation System & Causal Loop Visualization (NEEDS IMPLEMENTATION)
+- [ ] Implement loading states for policy processing with multi-stage animation
+- [ ] Create turn transition animations showing metric changes
+- [ ] Add smooth progress bar transitions and metric updates
+- [ ] Build basic causal loop diagram with 3-4 key relationships
+- [ ] Create interactive nodes with hover information for causal loop
+- [ ] Implement micro-interactions (button hovers, card transitions)
+- [ ] Add notification system for achievements and discoveries
+
+#### Day 21.5: Integration & Testing ✅ COMPLETED
 - [x] Connect frontend to backend APIs with Axios client
 - [x] Implement state management with Zustand
 - [x] Add loading states and comprehensive error handling
@@ -155,12 +186,14 @@ This document outlines a focused vertical slice development approach for the pol
 - [ ] Test edge cases and extreme inputs
 - [ ] Optimize response times
 
-#### Day 27-28: Final Polish
+#### Day 27-28: Final Polish & Advanced Features
 - [ ] Add sound effects and notifications
-- [ ] Improve visual feedback
-- [ ] Implement basic animations
-- [ ] Add keyboard shortcuts
-- [ ] Create onboarding tutorial
+- [ ] Complete animation system implementation
+- [ ] Finalize causal loop visualization with discovery mechanics
+- [ ] Implement achievement system with celebration animations
+- [ ] Add keyboard shortcuts and accessibility improvements
+- [ ] Create onboarding tutorial with progressive complexity explanation
+- [ ] Polish progress dashboard with all trend indicators
 
 **Deliverable**: Polished vertical slice ready for testing
 
@@ -206,6 +239,64 @@ interface GameState {
   };
   activeEvents: Event[];
   policyHistory: Policy[];
+  progressMetrics: ProgressMetrics;
+  causalLoopVisibility: CausalLoopState;
+  achievements: Achievement[];
+}
+
+interface ProgressMetrics {
+  overallApproval: {
+    current: number;
+    trend: 'up' | 'down' | 'stable';
+    history: number[]; // Last 10 turns for trend calculation
+    milestone: string; // "Stable Leadership", "Crisis Mode", etc.
+  };
+  budgetHealth: {
+    current: number;
+    trend: 'improving' | 'declining' | 'stable';
+    debtLevel: number;
+    sustainabilityScore: number; // 0-100
+  };
+  demographicHarmony: {
+    overallBalance: number; // 0-100
+    mostSatisfied: string;
+    mostConcerned: string;
+    polarization: number; // How divided demographics are
+  };
+}
+
+interface CausalLoopState {
+  visibilityLevel: number; // 1-4
+  discoveredRelationships: string[]; // IDs of revealed relationships
+  availableNodes: CausalNode[];
+  availableEdges: CausalEdge[];
+}
+
+interface CausalNode {
+  id: string;
+  label: string;
+  type: 'controlled' | 'revealed' | 'hidden';
+  position: { x: number; y: number };
+  description: string;
+}
+
+interface CausalEdge {
+  id: string;
+  from: string;
+  to: string;
+  strength: number; // -1 to 1
+  type: 'positive' | 'negative';
+  visible: boolean;
+  discoveryTurn?: number;
+}
+
+interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  unlockedAt?: number; // Turn number
+  progress?: number; // 0-100 for progressive achievements
 }
 
 interface DemographicState {
@@ -292,8 +383,11 @@ Evaluate this custom policy with JSON:
 ### Functional Requirements
 - [ ] Complete turn cycle in under 60 seconds
 - [ ] AI responses generate within 10 seconds
-- [ ] All UI interactions work smoothly
-- [ ] Game state persists between sessions
+- [ ] All UI interactions work smoothly with animations
+- [ ] Progress dashboard updates in real-time with smooth transitions
+- [ ] Causal loop visualization displays correctly with interactive nodes
+- [ ] Game state persists between sessions including progress metrics
+- [ ] Animation system performs smoothly (60fps) on target hardware
 - [ ] No critical bugs or crashes
 
 ### Quality Requirements
@@ -305,10 +399,13 @@ Evaluate this custom policy with JSON:
 
 ### User Experience Requirements
 - [ ] New players understand the game within 5 minutes
-- [ ] Policy creation feels intuitive and creative
-- [ ] Feedback clearly shows consequences of actions
-- [ ] Interface is visually appealing and professional
-- [ ] Game loop is engaging for at least 10 turns
+- [ ] Structured policy decisions feel intuitive and meaningful
+- [ ] Progress tracking provides clear sense of advancement
+- [ ] Causal loop discovery creates "aha!" moments
+- [ ] Animations enhance rather than distract from gameplay
+- [ ] Feedback clearly shows consequences of actions with visual flair
+- [ ] Interface is visually appealing, professional, and engaging
+- [ ] Game loop remains engaging for at least 15 turns with progressive complexity
 
 ---
 

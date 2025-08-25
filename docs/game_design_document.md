@@ -413,8 +413,11 @@ CREATE TABLE events (
 - **Reading Pane**: Full email content with rich formatting
 - **Policy Decision Panel**: Structured issue presentation with multiple choice options
 - **Custom Policy Composer**: Brief text input for alternative solutions
+- **Progress Dashboard**: Overall status tracking with trend indicators
+- **Causal Loop Visualization**: Interactive diagram showing system relationships
 - **Sidebar Tools**: Quick access to reports and analytics
 - **Status Bar**: Turn indicator, approval rating, budget summary
+- **Animation System**: Loading states, transitions, and feedback animations
 
 ### Policy Decision Interface
 
@@ -446,30 +449,152 @@ CREATE TABLE events (
 
 ### Dashboard Components
 
-**Approval Rating Widget**
+**Progress Overview Dashboard**
 ```html
-<div class="approval-widget">
-  <h3>Current Approval</h3>
-  <div class="rating-circle">72%</div>
-  <div class="demographic-bars">
-    <div class="bar youth">Youth: 85%</div>
-    <div class="bar seniors">Seniors: 45%</div>
-    <div class="bar business">Business: 78%</div>
-    <div class="bar environment">Environment: 80%</div>
+<div class="progress-dashboard">
+  <div class="overall-status">
+    <h2>Town Status Overview</h2>
+    <div class="status-grid">
+      <div class="status-card approval">
+        <div class="metric-header">
+          <h3>Overall Approval</h3>
+          <div class="trend-indicator up">↗️ +3%</div>
+        </div>
+        <div class="metric-value">72%</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 72%"></div>
+        </div>
+        <div class="status-description">Stable - Citizens generally satisfied</div>
+      </div>
+      
+      <div class="status-card budget">
+        <div class="metric-header">
+          <h3>Budget Health</h3>
+          <div class="trend-indicator down">↘️ -2%</div>
+        </div>
+        <div class="metric-value">$200K Surplus</div>
+        <div class="progress-bar">
+          <div class="progress-fill positive" style="width: 60%"></div>
+        </div>
+        <div class="status-description">Healthy surplus, room for investment</div>
+      </div>
+      
+      <div class="status-card demographics">
+        <div class="metric-header">
+          <h3>Demographic Harmony</h3>
+          <div class="trend-indicator stable">→ 0%</div>
+        </div>
+        <div class="metric-value">Moderate</div>
+        <div class="demographic-mini-bars">
+          <div class="mini-bar youth" title="Youth: 85%"></div>
+          <div class="mini-bar business" title="Business: 78%"></div>
+          <div class="mini-bar seniors" title="Seniors: 45%"></div>
+          <div class="mini-bar environment" title="Environment: 80%"></div>
+        </div>
+        <div class="status-description">Mixed reactions, focus needed on seniors</div>
+      </div>
+    </div>
   </div>
 </div>
 ```
 
-**Budget Overview Panel**
+**Causal Loop Visualization System**
 ```html
-<div class="budget-panel">
-  <h3>Municipal Budget</h3>
-  <div class="budget-summary">
-    <span class="income">Income: $2.3M</span>
-    <span class="expenses">Expenses: $2.1M</span>
-    <span class="surplus positive">Surplus: $200K</span>
+<div class="causal-loop-container">
+  <div class="loop-header">
+    <h3>System Relationships</h3>
+    <div class="visibility-level">Level 2: Municipal Operations</div>
   </div>
-  <canvas id="budget-chart"></canvas>
+  
+  <svg class="causal-diagram" viewBox="0 0 800 600">
+    <!-- Nodes (Variables) -->
+    <g class="nodes">
+      <circle class="node controlled" cx="200" cy="150" r="30" data-variable="budget"/>
+      <text x="200" y="155">Budget</text>
+      
+      <circle class="node controlled" cx="400" cy="150" r="30" data-variable="policies"/>
+      <text x="400" y="155">Policies</text>
+      
+      <circle class="node revealed" cx="600" cy="150" r="30" data-variable="approval"/>
+      <text x="600" y="155">Approval</text>
+      
+      <circle class="node hidden" cx="300" cy="300" r="30" data-variable="economic_health"/>
+      <text x="300" y="305">Economy</text>
+    </g>
+    
+    <!-- Relationships (Edges) -->
+    <g class="relationships">
+      <path class="relationship positive" d="M230,150 Q315,100 370,150" 
+            data-strength="0.7" data-delay="1"/>
+      <path class="relationship negative" d="M430,150 Q515,100 570,150" 
+            data-strength="-0.5" data-delay="2"/>
+    </g>
+    
+    <!-- Animations for active relationships -->
+    <g class="flow-particles">
+      <circle class="particle" r="3">
+        <animateMotion dur="2s" repeatCount="indefinite">
+          <mpath href="#relationship-1"/>
+        </animateMotion>
+      </circle>
+    </g>
+  </svg>
+  
+  <div class="loop-legend">
+    <div class="legend-item">
+      <span class="legend-dot controlled"></span> Under Your Control
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot revealed"></span> Recently Discovered
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot hidden"></span> Hidden Relationships
+    </div>
+  </div>
+</div>
+```
+
+**Animation and Loading System**
+```html
+<div class="animation-system">
+  <!-- Policy Processing Animation -->
+  <div class="policy-processing-overlay" id="processingOverlay">
+    <div class="processing-content">
+      <div class="spinner-container">
+        <div class="policy-spinner">
+          <div class="spinner-segment demographics"></div>
+          <div class="spinner-segment simulation"></div>
+          <div class="spinner-segment ai"></div>
+          <div class="spinner-segment results"></div>
+        </div>
+      </div>
+      <div class="processing-text">
+        <h3>Processing Policy Decisions...</h3>
+        <div class="processing-steps">
+          <div class="step active">📊 Analyzing demographic impact</div>
+          <div class="step">🤖 Consulting AI advisors</div>
+          <div class="step">⚙️ Running simulation</div>
+          <div class="step">📧 Generating responses</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Turn Transition Animation -->
+  <div class="turn-transition" id="turnTransition">
+    <div class="transition-content">
+      <div class="turn-counter">
+        <span class="old-turn">Turn 3</span>
+        <span class="arrow">→</span>
+        <span class="new-turn">Turn 4</span>
+      </div>
+      <div class="transition-effects">
+        <div class="effect budget-change">Budget: +$50K</div>
+        <div class="effect approval-change">Approval: +2%</div>
+        <div class="effect new-issues">3 New Issues</div>
+      </div>
+    </div>
+  </div>
 </div>
 ```
 
@@ -478,6 +603,107 @@ CREATE TABLE events (
 - **Minimum Resolution**: 1366x768 support
 - **Scaling Options**: UI scale settings for high-DPI displays
 - **Accessibility**: Keyboard navigation and screen reader support
+
+---
+
+## Progressive Complexity & Discovery System
+
+### Causal Loop Revelation Mechanics
+
+**Progressive Unlock System**
+The game starts with players controlling only basic municipal functions, gradually revealing more complex system relationships as they demonstrate competency and advance in responsibility.
+
+**Visibility Levels**
+1. **Level 1: Basic Operations** (Turns 1-5)
+   - Direct control: Budget allocation, basic policies
+   - Visible relationships: Policy → Demographic happiness, Budget → Services
+   - Hidden: Economic multipliers, inter-demographic influences
+
+2. **Level 2: Municipal Management** (Turns 6-15)
+   - Revealed: Economic health impacts, service quality effects
+   - New controls: Infrastructure projects, regulatory policies
+   - Hidden: Regional economic factors, long-term demographic shifts
+
+3. **Level 3: Regional Influence** (Turns 16-30)
+   - Revealed: Inter-city relationships, economic competition
+   - New controls: Regional partnerships, economic development
+   - Hidden: State-level policy impacts, macro-economic trends
+
+4. **Level 4: Strategic Leadership** (Turns 31+)
+   - Revealed: Full causal loop diagram with all relationships
+   - New controls: Long-term strategic planning, crisis management
+   - Master-level complexity with all system interactions visible
+
+**Discovery Triggers**
+- **Performance-Based**: Unlock new areas by maintaining high approval ratings
+- **Crisis-Driven**: Emergency situations reveal hidden system relationships
+- **Exploration-Based**: Experimenting with policies uncovers new connections
+- **Time-Based**: Some relationships only become apparent over multiple turns
+
+### Progress Tracking System
+
+**Overall Progress Metrics**
+```javascript
+interface ProgressMetrics {
+  overallApproval: {
+    current: number;
+    trend: 'up' | 'down' | 'stable';
+    history: number[]; // Last 10 turns
+    milestone: string; // "Stable Leadership", "Crisis Mode", etc.
+  };
+  
+  budgetHealth: {
+    current: number;
+    trend: 'improving' | 'declining' | 'stable';
+    debtLevel: number;
+    sustainabilityScore: number;
+  };
+  
+  demographicHarmony: {
+    overallBalance: number; // 0-100
+    mostSatisfied: string;
+    mostConcerned: string;
+    polarization: number; // How divided demographics are
+  };
+  
+  systemMastery: {
+    visibilityLevel: number; // 1-4
+    relationshipsDiscovered: number;
+    totalRelationships: number;
+    masteryPercentage: number;
+  };
+  
+  achievements: Achievement[];
+}
+```
+
+**Achievement System**
+- **"Steady Hand"**: Maintain >70% approval for 5 consecutive turns
+- **"Budget Master"**: Achieve budget surplus for 3 consecutive turns
+- **"Consensus Builder"**: Get all demographics above 60% happiness simultaneously
+- **"Crisis Manager"**: Successfully handle 3 major crisis events
+- **"System Architect"**: Discover 50% of all causal relationships
+- **"Master Politician"**: Reach maximum visibility level (Level 4)
+
+### Animation and Feedback System
+
+**Loading and Processing States**
+- **Policy Processing**: Multi-stage animation showing AI consultation, simulation, and result generation
+- **Turn Transitions**: Smooth animations showing metric changes and new developments
+- **Discovery Moments**: Special animations when new causal relationships are revealed
+- **Achievement Unlocks**: Celebration animations for milestones and achievements
+
+**Visual Feedback Elements**
+- **Trend Indicators**: Animated arrows showing metric improvements/declines
+- **Progress Bars**: Smooth transitions for all percentage-based metrics
+- **Particle Effects**: Subtle animations showing system interactions in causal loop
+- **Notification System**: Toast notifications for important events and discoveries
+
+**Micro-Interactions**
+- **Button Hover Effects**: Subtle animations on interactive elements
+- **Card Transitions**: Smooth expand/collapse for detailed information
+- **Chart Animations**: Animated data visualization updates
+- **Email Notifications**: Subtle pulse effects for new messages
 
 ---
 
