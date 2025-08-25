@@ -18,21 +18,50 @@
 A single-player political simulation web game where players assume the role of a young politician managing a local town through an immersive email-based interface. The game combines dynamic AI-driven demographic responses with complex causal simulation systems to create realistic political consequences.
 
 ### Core Concept
-- **Platform**: Web-based (HTML5/JavaScript)
+- **Platform**: Web-based (HTML5/JavaScript) with Windows binary distribution
 - **Target Audience**: PC users interested in political simulation and strategy games
 - **Art Style**: Realistic email client and office software interface
 - **Unique Selling Points**: 
-  - Open-ended policy input system powered by AI
-  - Realistic email-based interface
+  - Structured policy decision system with meaningful choices
+  - Realistic email-based interface with issue-focused gameplay
   - Dynamic demographic responses via Large Language Models
   - Complex causal loop simulation system
   - Extensive modding support
 
 ### Game Pillars
 1. **Authenticity**: Realistic political processes and consequences
-2. **Creativity**: Open-ended policy proposals with AI interpretation
+2. **Meaningful Choice**: Structured policy decisions with clear trade-offs
 3. **Complexity**: Interconnected systems with meaningful feedback loops
 4. **Accessibility**: Intuitive email-based interface familiar to all users
+
+### Policy Decision System
+Each turn, players face **3-5 structured policy dilemmas** across different categories:
+
+#### Policy Categories
+- **Economic**: Budget allocation, taxation, business regulations
+- **Social**: Education, healthcare, housing, welfare programs  
+- **Legal**: Law enforcement, civil rights, judicial reforms
+- **Environmental**: Conservation, pollution control, sustainability
+- **Infrastructure**: Transportation, utilities, public works
+- **Technology**: Digital services, innovation, privacy regulations
+
+#### Decision Format
+Each policy issue presents:
+- **Context**: Brief background explaining the situation
+- **Stakeholders**: Which demographics are most affected
+- **Options**: 2-4 predefined policy choices with clear descriptions
+- **Custom Option**: Player can write a brief alternative (50-100 words max)
+- **Consequences Preview**: Hints at potential demographic reactions
+
+#### Example Policy Issue
+**Category**: Economic  
+**Issue**: "Local Business Tax Reform"  
+**Context**: "Small businesses are struggling with current tax rates, but the city needs revenue for infrastructure projects."  
+**Options**:
+1. **Reduce Business Taxes (-15%)** - Lower revenue but support local economy
+2. **Maintain Current Rates** - Status quo with balanced impact  
+3. **Increase Taxes (+10%) with Incentives** - Higher revenue with targeted business support programs
+4. **Custom Policy**: [Player writes alternative approach]
 
 ---
 
@@ -49,11 +78,12 @@ The player is a newly elected local politician responsible for managing a town's
 
 ### Gameplay Loop
 1. **Email Review Phase**: Player reads incoming emails about issues, events, and previous policy results
-2. **Decision Phase**: Player composes policy responses or initiatives via email interface
-3. **AI Processing Phase**: Each demographic's AI agent evaluates the policy proposal
-4. **Simulation Update**: Causal loop system processes all effects and updates world state
-5. **Feedback Phase**: New emails arrive showing policy outcomes and emerging issues
-6. **Turn Advancement**: Game progresses to next time period (monthly/quarterly)
+2. **Issue Presentation Phase**: Game presents 3-5 structured policy dilemmas across different categories (Economy, Laws, Environment, etc.)
+3. **Decision Phase**: For each issue, player chooses from 2-4 predefined policy options OR writes a brief custom response
+4. **AI Processing Phase**: Each demographic's AI agent evaluates the selected policies
+5. **Simulation Update**: Causal loop system processes all effects and updates world state
+6. **Feedback Phase**: New emails arrive showing policy outcomes and emerging issues
+7. **Turn Advancement**: Game progresses to next time period (monthly/quarterly)
 
 ### Victory Conditions
 - **Primary**: Maintain overall approval rating above threshold
@@ -334,6 +364,26 @@ CREATE TABLE events (
 - Prepare support documentation
 - Set up analytics and feedback collection
 
+### Phase 6: Windows Binary Distribution (Weeks 17-18)
+
+**Desktop Application Packaging**
+- Package web application using Electron or Tauri
+- Create Windows installer with proper dependencies
+- Bundle LLM models and required runtime components
+- Implement auto-update mechanism
+
+**Distribution Setup**
+- Create Windows executable with embedded web server
+- Configure offline mode with local model inference
+- Set up code signing for Windows security
+- Prepare distribution channels (Steam, itch.io, direct download)
+
+**Platform Optimization**
+- Optimize startup time and memory usage
+- Implement native system integration (notifications, file associations)
+- Add Windows-specific features (taskbar integration, system tray)
+- Test on various Windows versions (10, 11)
+
 ---
 
 ## User Interface Design
@@ -361,9 +411,38 @@ CREATE TABLE events (
 **Key Interface Elements**
 - **Inbox**: Categorized email list with unread indicators
 - **Reading Pane**: Full email content with rich formatting
-- **Compose Window**: Policy proposal interface with templates
+- **Policy Decision Panel**: Structured issue presentation with multiple choice options
+- **Custom Policy Composer**: Brief text input for alternative solutions
 - **Sidebar Tools**: Quick access to reports and analytics
 - **Status Bar**: Turn indicator, approval rating, budget summary
+
+### Policy Decision Interface
+
+**Issue Presentation Layout**
+```
+┌─────────────────────────────────────────────────────────┐
+│ 📊 ECONOMIC ISSUE: Local Business Tax Reform           │
+├─────────────────────────────────────────────────────────┤
+│ Context: Small businesses struggling with current tax   │
+│ rates, but city needs revenue for infrastructure.       │
+│                                                         │
+│ Affected Demographics: 🏢 Business Owners, 👥 Youth    │
+│                                                         │
+│ ○ Reduce Business Taxes (-15%)                         │
+│   Lower revenue but support local economy               │
+│                                                         │
+│ ○ Maintain Current Rates                               │
+│   Status quo with balanced impact                       │
+│                                                         │
+│ ○ Increase Taxes (+10%) with Incentives               │
+│   Higher revenue with targeted support programs         │
+│                                                         │
+│ ○ Custom Policy: [Text Input Box]                     │
+│   Write your alternative (50-100 words)                │
+│                                                         │
+│ [Preview Reactions] [Submit Decision] [Skip Issue]     │
+└─────────────────────────────────────────────────────────┘
+```
 
 ### Dashboard Components
 

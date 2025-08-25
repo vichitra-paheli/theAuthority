@@ -10,31 +10,37 @@ This document outlines a focused vertical slice development approach for the pol
 
 ### Core Features to Implement
 1. **Single Turn Gameplay Loop**
-   - One complete turn cycle from email reading to policy implementation
+   - One complete turn cycle from email reading to structured policy decisions
    - Immediate feedback and state changes
    - Basic turn advancement
 
-2. **Minimal Viable Demographics (2 instead of 4)**
+2. **Structured Policy Decision System**
+   - 3-5 predefined policy issues per turn across different categories
+   - Multiple choice options (2-4) for each issue
+   - Custom policy text input as alternative option
+   - Clear context and stakeholder information for each decision
+
+3. **Minimal Viable Demographics (2 instead of 4)**
    - **Youth Demographic**: Tech-savvy, employment-focused
    - **Business Owners**: Economy and tax-focused
    - Simplified AI personas with consistent JSON responses
 
-3. **Essential Simulation Variables**
+4. **Essential Simulation Variables**
    - Budget (income/expenses)
    - Overall Approval Rating
    - Economic Health
    - Youth Happiness
    - Business Satisfaction
 
-4. **Basic Email Interface**
-   - Simple inbox with 3-5 pre-written emails
-   - Policy composition form
-   - Turn results display
+5. **Enhanced Email Interface**
+   - Email inbox with issue notifications and results
+   - Policy decision panel with structured choices
+   - Turn results display with demographic reactions
 
-5. **Minimal AI Integration**
+6. **Minimal AI Integration**
    - Local LLM setup with basic prompts
-   - Two demographic agents
-   - Simple response parsing
+   - Two demographic agents evaluating both predefined and custom policies
+   - Simple response parsing with fallback for predefined options
 
 ---
 
@@ -83,19 +89,19 @@ This document outlines a focused vertical slice development approach for the pol
 - [ ] Create demographic state tracking
 - [ ] Add simple causal relationships
 
-#### Day 11-12: AI Demographic System
-- [ ] Implement DemographicAgent class
-- [ ] Create Youth demographic persona
-- [ ] Create Business demographic persona
-- [ ] Build prompt templates with context injection
-- [ ] Test response consistency and parsing
+#### Day 11-12: Policy Decision System
+- [ ] Create PolicyIssue data structure with multiple choice options
+- [ ] Implement issue generation system with predefined scenarios
+- [ ] Build policy evaluation logic for both predefined and custom options
+- [ ] Create issue categorization system (Economic, Social, Legal, etc.)
+- [ ] Test policy decision workflow
 
-#### Day 13-14: Basic Email System
-- [ ] Create email data structure
-- [ ] Implement email templates
-- [ ] Build email generation system
-- [ ] Create policy parsing logic
-- [ ] Test end-to-end email flow
+#### Day 13-14: Enhanced AI Integration
+- [ ] Update DemographicAgent class for structured decisions
+- [ ] Create prompt templates for evaluating predefined policy options
+- [ ] Implement fallback responses for predefined choices
+- [ ] Build custom policy evaluation with full LLM processing
+- [ ] Test response consistency across both decision types
 
 **Deliverable**: Working backend with AI demographics and email system
 
@@ -108,6 +114,13 @@ This document outlines a focused vertical slice development approach for the pol
 - [x] Build policy composition form with templates and suggestions
 - [x] Add professional email client styling and layout
 - [x] Implement responsive design basics
+
+#### Day 17.5: Policy Decision Interface (NEXT UPDATE NEEDED)
+- [ ] Design and implement structured policy decision panel
+- [ ] Create multiple choice option selection interface
+- [ ] Build custom policy text input with character limits
+- [ ] Add issue categorization and context display
+- [ ] Implement demographic impact previews
 
 #### Day 18-19: Game Dashboard ✅ COMPLETED
 - [x] Create approval rating display with color-coded indicators
@@ -129,11 +142,11 @@ This document outlines a focused vertical slice development approach for the pol
 **Goal**: Refine the vertical slice for demonstration
 
 #### Day 22-24: Content Creation
-- [ ] Write 5 engaging starter emails
-- [ ] Create 3 sample policy scenarios
-- [ ] Design realistic email templates
-- [ ] Add appropriate sender personas
-- [ ] Test narrative flow and engagement
+- [ ] Create 15-20 structured policy issues across all categories
+- [ ] Write engaging multiple choice options for each issue
+- [ ] Design realistic email templates for issue notifications
+- [ ] Create demographic impact previews for predefined options
+- [ ] Test policy decision flow and narrative engagement
 
 #### Day 25-26: Balance & Tuning
 - [ ] Tune AI response consistency
@@ -202,48 +215,74 @@ interface DemographicState {
   supportLevel: number; // 0-100
 }
 
+interface PolicyIssue {
+  id: string;
+  category: 'economic' | 'social' | 'legal' | 'environmental' | 'infrastructure' | 'technology';
+  title: string;
+  context: string;
+  affectedDemographics: string[];
+  options: PolicyOption[];
+  customOptionAllowed: boolean;
+}
+
+interface PolicyOption {
+  id: string;
+  title: string;
+  description: string;
+  previewEffects: {
+    budget: number;
+    demographics: Record<string, number>;
+  };
+}
+
 interface Email {
   id: string;
   from: string;
   subject: string;
   body: string;
   timestamp: Date;
-  type: 'issue' | 'result' | 'event';
-  requiresResponse: boolean;
+  type: 'issue_notification' | 'policy_result' | 'event' | 'general';
+  relatedIssue?: string;
 }
 ```
 
-### Simplified AI Prompts
+### Enhanced AI Prompts for Structured Decisions
 ```typescript
-const YOUTH_PERSONA = `
-You represent young adults (18-30) in a local town government simulation.
+const YOUTH_PERSONA_PREDEFINED = `
+You represent young adults (18-30) evaluating a predefined policy option.
 Current happiness: {happiness}/100
 Recent concerns: {concerns}
 
-Evaluate this policy proposal: "{policy}"
+Policy Category: {category}
+Policy Option: "{optionTitle}" - {optionDescription}
+Context: {issueContext}
 
-Respond with JSON only:
+Rate this specific policy option with JSON:
 {
-  "happiness_change": number (-20 to +20),
+  "happiness_change": number (-15 to +15),
+  "support_level": number (0 to 100),
+  "reaction": "brief explanation (max 30 words)"
+}
+`;
+
+const YOUTH_PERSONA_CUSTOM = `
+You represent young adults (18-30) evaluating a custom policy proposal.
+Current happiness: {happiness}/100
+Recent concerns: {concerns}
+
+Policy Category: {category}
+Custom Policy: "{customPolicy}"
+Context: {issueContext}
+
+Evaluate this custom policy with JSON:
+{
+  "happiness_change": number (-25 to +25),
   "support_level": number (0 to 100),
   "reaction": "brief explanation (max 50 words)"
 }
 `;
 
-const BUSINESS_PERSONA = `
-You represent local business owners in a town government simulation.
-Current satisfaction: {satisfaction}/100
-Economic concerns: {concerns}
-
-Evaluate this policy proposal: "{policy}"
-
-Respond with JSON only:
-{
-  "satisfaction_change": number (-20 to +20),
-  "economic_impact": number (-10 to +10),
-  "reaction": "brief explanation (max 50 words)"
-}
-`;
+// Similar structure for BUSINESS_PERSONA_PREDEFINED and BUSINESS_PERSONA_CUSTOM
 ```
 
 ---
@@ -318,6 +357,26 @@ Respond with JSON only:
 - Multiplayer considerations
 - Advanced AI features
 - Commercial release preparation
+
+### Phase 7: Windows Binary Distribution (Weeks 5-6)
+**Goal**: Package the web application as a standalone Windows executable
+
+#### Week 5: Desktop Application Setup
+- [ ] Research and select packaging solution (Electron vs Tauri vs Neutralino)
+- [ ] Set up desktop application project structure
+- [ ] Configure embedded web server for offline functionality
+- [ ] Bundle LLM models and dependencies into executable
+- [ ] Test basic desktop application functionality
+
+#### Week 6: Distribution and Polish
+- [ ] Create Windows installer with proper dependencies
+- [ ] Implement auto-update mechanism for future releases
+- [ ] Add native Windows integration (system notifications, taskbar)
+- [ ] Set up code signing for Windows security compliance
+- [ ] Test on multiple Windows versions (Windows 10, 11)
+- [ ] Prepare distribution channels (Steam, itch.io, direct download)
+
+**Deliverable**: Standalone Windows executable ready for distribution
 
 ---
 
