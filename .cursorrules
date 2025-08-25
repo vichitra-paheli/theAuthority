@@ -172,12 +172,24 @@ src/
 
 ## Development Workflow
 
-### Git Workflow
-- Use conventional commit messages
-- Create feature branches for all changes
-- Require code review for main branch
+### Git Workflow & Branch Management
+- Use conventional commit messages (feat:, fix:, docs:, refactor:, etc.)
+- **Phase-based branching**: Create new branch for each development phase
+  - Branch naming: `phase{N}-{description}` (e.g., `phase2-database-llm-integration`)
+  - Complete phase work on branch before merging to main
+- Create feature branches for individual features within phases
+- Always update todos and development plan when starting new phases
+- Require code review for main branch merges
 - Use semantic versioning for releases
 - Keep commit history clean with squash merges
+
+### Phase Management Rules
+- **ALWAYS** create new branch when starting a development phase
+- Update vertical slice development plan with progress checkmarks
+- Update todo list to reflect current phase tasks
+- Mark previous phase todos as completed before starting new phase
+- Document any deviations from the original plan
+- Commit phase transitions with clear messages
 
 ### Code Review Checklist
 - [ ] Code follows established patterns
