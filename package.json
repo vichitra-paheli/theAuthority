@@ -1,0 +1,46 @@
+{
+  "name": "theauthority",
+  "version": "0.1.0",
+  "description": "A web-based political simulation game with AI-powered demographic responses",
+  "main": "backend/src/index.js",
+  "type": "module",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "cd backend && npm run test",
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vichitra-paheli/theAuthority.git"
+  },
+  "keywords": [
+    "political-simulation",
+    "game",
+    "ai",
+    "web",
+    "typescript",
+    "react",
+    "nodejs"
+  ],
+  "author": "vichitra-paheli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vichitra-paheli/theAuthority/issues"
+  },
+  "homepage": "https://github.com/vichitra-paheli/theAuthority#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

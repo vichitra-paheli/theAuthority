@@ -1,0 +1,239 @@
+# Cursor Rules for Political Simulation Game
+
+## Project Overview
+This is a web-based political simulation game where players manage a local town through an email interface, with AI-powered demographic responses and complex simulation systems.
+
+## Technology Stack
+- **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS
+- **Backend**: Node.js + Express.js + TypeScript
+- **Database**: PostgreSQL (production) / SQLite (development)
+- **AI**: Ollama + ChatGPT-OSS (7B/20B models)
+- **State Management**: Zustand
+- **Testing**: Vitest + React Testing Library
+- **Containerization**: Docker + Docker Compose
+
+## Code Style & Standards
+
+### TypeScript
+- Use strict TypeScript configuration
+- Always define interfaces for data structures
+- Use type guards for runtime validation
+- Prefer `interface` over `type` for object definitions
+- Use `const assertions` for immutable data
+
+### React Components
+- Use functional components with hooks
+- Implement proper error boundaries
+- Use React.memo for performance optimization where needed
+- Follow the compound component pattern for complex UI
+- Use custom hooks for shared logic
+
+### File Naming Conventions
+- Components: PascalCase (e.g., `EmailComposer.tsx`)
+- Hooks: camelCase with "use" prefix (e.g., `useGameState.ts`)
+- Utilities: camelCase (e.g., `apiClient.ts`)
+- Constants: UPPER_SNAKE_CASE (e.g., `API_ENDPOINTS.ts`)
+- Types/Interfaces: PascalCase (e.g., `GameTypes.ts`)
+
+### Project Structure
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # Basic UI elements
+│   ├── game/           # Game-specific components
+│   └── layout/         # Layout components
+├── hooks/              # Custom React hooks
+├── services/           # API and external services
+├── stores/             # State management
+├── types/              # TypeScript type definitions
+├── utils/              # Utility functions
+├── constants/          # Application constants
+└── assets/             # Static assets
+```
+
+## Development Guidelines
+
+### Game-Specific Rules
+
+#### Simulation Engine
+- Always validate input ranges for simulation variables (0-100 for percentages)
+- Use immutable updates for game state changes
+- Implement proper error handling for AI response parsing
+- Cache expensive calculations where possible
+- Log all simulation state changes for debugging
+
+#### AI Integration
+- Always validate AI responses with Zod schemas
+- Implement fallback responses for AI failures
+- Use consistent prompt templates with clear formatting
+- Log all AI interactions for analysis and debugging
+- Implement rate limiting for AI requests
+
+#### Email System
+- Use template-based email generation with variable substitution
+- Validate all email content for XSS prevention
+- Implement proper email threading and conversation tracking
+- Use semantic HTML for accessibility
+- Support markdown formatting in email bodies
+
+### Code Quality
+
+#### Error Handling
+- Use Result/Either pattern for operations that can fail
+- Always handle async operation failures
+- Provide meaningful error messages to users
+- Log errors with sufficient context for debugging
+- Implement proper error boundaries in React
+
+#### Performance
+- Lazy load components that aren't immediately needed
+- Implement virtual scrolling for long email lists
+- Use React.memo and useMemo for expensive calculations
+- Optimize database queries with proper indexing
+- Implement caching for AI responses and simulation results
+
+#### Security
+- Sanitize all user inputs
+- Use parameterized queries for database operations
+- Implement proper CORS configuration
+- Validate all API inputs with Zod
+- Use environment variables for sensitive configuration
+
+### Testing Guidelines
+
+#### Unit Tests
+- Test all utility functions with edge cases
+- Mock external dependencies (AI, database)
+- Test React components with React Testing Library
+- Achieve >80% code coverage for critical paths
+- Test error conditions and edge cases
+
+#### Integration Tests
+- Test complete user workflows
+- Test AI integration with mock responses
+- Test database operations with test database
+- Test API endpoints with supertest
+- Test game state transitions
+
+#### E2E Tests
+- Test critical user journeys (complete turn cycle)
+- Test across different browsers
+- Test responsive design on different screen sizes
+- Test accessibility with screen readers
+- Test performance under realistic load
+
+## AI Development Guidelines
+
+### Prompt Engineering
+- Use consistent JSON response formats
+- Include clear instructions and examples
+- Implement prompt versioning for testing
+- Test prompts with edge cases and unusual inputs
+- Document prompt templates and their purposes
+
+### Response Handling
+- Always validate AI responses with strict schemas
+- Implement graceful degradation for invalid responses
+- Cache responses to improve performance
+- Log response quality metrics
+- Implement response post-processing for consistency
+
+## Database Guidelines
+
+### Schema Design
+- Use proper foreign key constraints
+- Implement database migrations for schema changes
+- Use appropriate data types (JSONB for flexible data)
+- Add proper indexes for query performance
+- Document all table relationships
+
+### Query Optimization
+- Use prepared statements for repeated queries
+- Implement connection pooling
+- Monitor query performance
+- Use database views for complex aggregations
+- Implement proper transaction handling
+
+## Documentation Requirements
+
+### Code Documentation
+- Document all public APIs with JSDoc
+- Include usage examples for complex functions
+- Document all environment variables
+- Maintain architecture decision records
+- Keep README files up to date
+
+### Game Design Documentation
+- Document all simulation formulas and relationships
+- Maintain demographic persona definitions
+- Document email template formats
+- Keep game balance notes and decisions
+- Document modding interfaces and formats
+
+## Development Workflow
+
+### Git Workflow
+- Use conventional commit messages
+- Create feature branches for all changes
+- Require code review for main branch
+- Use semantic versioning for releases
+- Keep commit history clean with squash merges
+
+### Code Review Checklist
+- [ ] Code follows established patterns
+- [ ] All tests pass
+- [ ] TypeScript types are properly defined
+- [ ] Error handling is implemented
+- [ ] Performance implications considered
+- [ ] Security implications reviewed
+- [ ] Documentation updated if needed
+
+## Environment Configuration
+
+### Development Environment
+- Use Docker Compose for local development
+- Hot reload enabled for both frontend and backend
+- Debug logging enabled
+- Use smaller AI models for faster iteration
+- Mock external services when needed
+
+### Production Environment
+- Enable all security headers
+- Use production AI models
+- Implement proper logging and monitoring
+- Use environment-specific configuration
+- Enable performance monitoring
+
+## Accessibility Guidelines
+
+### UI Components
+- Use semantic HTML elements
+- Implement proper ARIA labels
+- Ensure keyboard navigation works
+- Maintain proper color contrast ratios
+- Test with screen readers
+
+### Game Interface
+- Provide text alternatives for visual elements
+- Implement keyboard shortcuts for common actions
+- Use clear, descriptive labels for all interactive elements
+- Provide audio feedback for important events
+- Support high contrast and large text modes
+
+## Performance Targets
+
+### Response Times
+- Page load: < 2 seconds
+- AI response: < 10 seconds
+- Database queries: < 100ms
+- UI interactions: < 100ms
+
+### Resource Usage
+- Memory: < 1GB for frontend
+- AI model: < 8GB RAM
+- Database: Efficient query execution
+- Network: Minimize payload sizes
+
+---
+
+*These rules should be followed consistently throughout development. Update this file as the project evolves and new patterns emerge.*
